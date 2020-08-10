@@ -29,11 +29,11 @@ defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
                 <img src="/Drust20.png" width="50" height="50" alt="">
             </a>
             <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Verktyg<span class="sr-only">(current)</span></a>
+            <li class="nav-item ">
+                <a class={classes ["nav-link", ("active", isActivePath ToolsAction)]} href={ToolsAction}>Verktyg</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Lån</a>
+                <a class={classes ["nav-link", ("active", isActivePath LoansAction)]} href={LoansAction}>Lån</a>
             </li>
             </ul>
         </nav>
