@@ -5,13 +5,6 @@ data EditView = EditView { loan :: Loan }
 
 instance View EditView ViewContext where
     html EditView { .. } = [hsx|
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={LoansAction}>Loans</a></li>
-                <li class="breadcrumb-item active">Edit Loan</li>
-            </ol>
-        </nav>
-        <h1>Edit Loan</h1>
         {renderForm loan}
     |]
 
