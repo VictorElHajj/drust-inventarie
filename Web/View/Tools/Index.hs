@@ -5,8 +5,17 @@ data IndexView = IndexView { tools :: [Tool] }
 
 instance View IndexView ViewContext where
     html IndexView { .. } = [hsx|
-        <div class="table-responsive">
-            <table class="table table-sm">
+        <div class="table-responsive shadow">
+            <table class="table table-sm;" style="border-top:hidden;">
+                <thead class="text-light" style="background-color: #fa6607;">
+                <th style="width:15%;">Kategori</th>
+                <th style="width:25%;">Namn</th>
+                <th style="width:25%;">Beskrivning</th>
+                <th style="width:15%;">Status</th>
+                <th style="width:6%;"></th>
+                <th style="width:6%;"></th>
+                <th style="width:8%;"></th>
+                </thead>
                 {
                     let 
                         categories = map (get #category) tools
@@ -15,13 +24,18 @@ instance View IndexView ViewContext where
                         forEach categories (renderCategory tools)
                 }
             </table>
-        </div>
         <a class="btn btn-light" href={NewToolAction} role="button">Ny</a>
+        </div>
+
+        <script>
+         $(function() { $.support.transition = false; })
+        </script>
     |]
 
 
-renderTool tool = [hsx|
-    <tr>
+renderTool category tool = [hsx|
+    <tr id={"collapse"++category} class="collapse" style="transition: none;">
+        <td></td>
         <td>{get #name tool}</td>
         <td>{get #description tool}</td>
         <td>{get #status tool}</td>
@@ -32,31 +46,23 @@ renderTool tool = [hsx|
 |]
 
 renderCategory tools category = [hsx|
-    <tr>
-        <td>
-            <button class="btn btn-link btn-block text-left text-dark" data-toggle="collapse" data-target={"#"++category} aria-expanded="false" aria-controls={category}>
+    <tr style="transform: rotate(0);">
+        <th>
+            <a class="btn btn-link btn-block text-left text-dark stretched-link" data-toggle="collapse" data-target={"#collapse"++category} aria-expanded="false" aria-controls={category}>
             {category}
-            </button>
-            <div id={category} class="collapse" aria-labelledby="headingOne">
-                <table class="table table-striped table-hover table-borderless">
-                <thead class="thead-light">
-                    <th>Namn</th>
-                    <th>Beskrivning</th>
-                    <th>Status</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </thead>
-                    <tbody>
-                        {
-                            let 
-                                toolsInCategory = filter (\tool -> (get #category tool) == category) tools
-                            in
-                                forEach toolsInCategory renderTool
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </td>
+            </a>
+        </th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
+    {
+        let 
+            toolsInCategory = filter (\tool -> (get #category tool) == category) tools
+        in
+            forEach toolsInCategory (renderTool category)
+    }
 |]
