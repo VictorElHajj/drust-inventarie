@@ -4,11 +4,6 @@ import Web.Controller.Prelude
 import Web.View.Loans.Index
 import Web.View.Loans.New
 import Web.View.Loans.Edit
-import Web.View.Loans.Show
-import Web.View.Loans.Index
-import Web.View.Loans.New
-import Web.View.Loans.Show
-import Web.View.Loans.Edit
 
 instance Controller LoansController where
     action LoansAction = do
@@ -20,10 +15,6 @@ instance Controller LoansController where
                 |> set #toolId toolId
         tool <- fetch toolId
         render NewView { .. }
-
-    action ShowLoanAction { loanId } = do
-        loan <- fetch loanId
-        render ShowView { .. }
 
     action EditLoanAction { loanId } = do
         loan <- fetch loanId

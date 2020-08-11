@@ -1,14 +1,9 @@
 module Web.Controller.Tools where
 
 import Web.Controller.Prelude
+import Web.View.Tools.Edit
 import Web.View.Tools.Index
 import Web.View.Tools.New
-import Web.View.Tools.Edit
-import Web.View.Tools.Show
-import Web.View.Tools.Index
-import Web.View.Tools.New
-import Web.View.Tools.Show
-import Web.View.Tools.Edit
 
 instance Controller ToolsController where
     action ToolsAction = do
@@ -18,10 +13,6 @@ instance Controller ToolsController where
     action NewToolAction = do
         let tool = newRecord
         render NewView { .. }
-
-    action ShowToolAction { toolId } = do
-        tool <- fetch toolId
-        render ShowView { .. }
 
     action EditToolAction { toolId } = do
         tool <- fetch toolId
