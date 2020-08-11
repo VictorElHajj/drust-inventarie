@@ -19,7 +19,7 @@ defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
     {stylesheets}
     {scripts}
 
-    <title>APK</title>
+    <title>DRust</title>
 </head>
 <body>
     {renderFlashMessages}
