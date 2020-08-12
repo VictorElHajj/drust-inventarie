@@ -10,8 +10,12 @@ instance View EditView ViewContext where
 
 renderForm :: Tool -> Html
 renderForm tool = formFor tool [hsx|
-    {textField #category}
-    {textField #name}
-    {textField #status}
-    {submitButton}
+    <div class="mt-2">
+        <h2>Redigera verktyg</h2>
+        {(textField #category) {fieldLabel = "Kategori"}}
+        {(textField #name) {fieldLabel = "Namn"}}
+        {(textareaField #description) {fieldLabel = "Beskrivning"}}
+        {(textField #status) {fieldLabel = "Status"}}
+        {submitButton {label = "Spara"}}
+    </div>
 |]
