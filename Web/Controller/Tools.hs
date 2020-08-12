@@ -27,7 +27,7 @@ instance Controller ToolsController where
                 Right tool -> do
                     tool <- tool |> updateRecord
                     setSuccessMessage "Tool updated"
-                    redirectTo EditToolAction { .. }
+                    redirectTo ToolsAction
 
     action CreateToolAction = do
         let tool = newRecord @Tool
