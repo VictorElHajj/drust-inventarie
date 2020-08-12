@@ -26,7 +26,7 @@ instance Controller ToolsController where
                 Left tool -> render EditView { .. }
                 Right tool -> do
                     tool <- tool |> updateRecord
-                    setSuccessMessage "Tool updated"
+                    setSuccessMessage "Verktyg redigerat"
                     redirectTo ToolsAction
 
     action CreateToolAction = do
@@ -38,13 +38,13 @@ instance Controller ToolsController where
                 Left tool -> render NewView { .. } 
                 Right tool -> do
                     tool <- tool |> createRecord
-                    setSuccessMessage "Tool created"
+                    setSuccessMessage "Verktyg skapat"
                     redirectTo ToolsAction
 
     action DeleteToolAction { toolId } = do
         tool <- fetch toolId
         deleteRecord tool
-        setSuccessMessage "Tool deleted"
+        setSuccessMessage "Verktyg borttaget"
         redirectTo ToolsAction
 
 buildTool tool = tool
