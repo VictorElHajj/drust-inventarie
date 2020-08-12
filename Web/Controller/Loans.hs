@@ -8,6 +8,7 @@ import Web.View.Loans.Edit
 instance Controller LoansController where
     action LoansAction = do
         loans <- query @Loan |> fetch
+        tools <- query @Tool |> fetch
         render IndexView { .. }
 
     action NewLoanAction { toolId }= do

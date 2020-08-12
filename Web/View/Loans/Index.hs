@@ -1,36 +1,48 @@
+{-# LANGUAGE LambdaCase #-}
+
 module Web.View.Loans.Index where
 import Web.View.Prelude
 
-data IndexView = IndexView { loans :: [Loan] }
+data IndexView = IndexView { loans :: [Loan]
+                           , tools :: [Tool]
+                           }
 
 instance View IndexView ViewContext where
     html IndexView { .. } = [hsx|
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active"><a href={LoansAction}>Loans</a></li>
-            </ol>
-        </nav>
         <div class="table-responsive">
-            <table class="table">
-                <thead>
+            <table class="table table-sm;" style="border-top:hidden;">
+                <thead class="text-light" style="background-color: #fa6607;">
                     <tr>
-                        <th>Loan</th>
+                        <th>Verktyg</th>
+                        <th>Person</th>
+                        <th>Datum Lånat</th>
+                        <th>Datum Lämnat</th>
                         <th></th>
                         <th></th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>{forEach loans renderLoan}</tbody>
+                <tbody>{forEach loans (renderLoan tools)}</tbody>
             </table>
         </div>
     |]
 
 
-renderLoan loan = [hsx|
+renderLoan tools loan = [hsx|
     <tr>
-        <td>{loan}</td>
-        <td><a href={ShowLoanAction (get #id loan)}>Show</a></td>
-        <td><a href={EditLoanAction (get #id loan)} class="text-muted">Edit</a></td>
-        <td><a href={DeleteLoanAction (get #id loan)} class="js-delete text-muted">Delete</a></td>
+        <td>{
+            let
+                id = get #toolId loan
+            in 
+                find (\tool -> get #id tool == id) tools
+                    |> \x -> case x of -- TODO: Why can't I use LambdaCase here?
+                        Nothing -> "Verktyget finns inte"
+                        Just tool -> name tool
+            }</td>
+        <td>{get #borrower loan}</td>
+        <td>{get #dateBorrowed loan}</td>
+        <td>{get #dateReturned loan}</td>
+        <td><a href={EditLoanAction (get #id loan)} class="text-muted">Ändra</a></td>
+        <td><a href={DeleteLoanAction (get #id loan)} class="js-delete text-muted">Ta bort</a></td>
     </tr>
 |]
