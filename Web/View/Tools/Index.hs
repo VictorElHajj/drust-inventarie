@@ -26,10 +26,6 @@ instance View IndexView ViewContext where
             </table>
         <a class="btn btn-light" href={NewToolAction} role="button">Ny</a>
         </div>
-
-        <script>
-         $(function() { $.support.transition = false; })
-        </script>
     |]
 
 
