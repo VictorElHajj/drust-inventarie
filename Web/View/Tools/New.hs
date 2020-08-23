@@ -10,8 +10,10 @@ instance View NewView ViewContext where
 
 renderForm :: Tool -> Html
 renderForm tool = formFor tool [hsx|
-    {textField #category}
-    {textField #name}
-    {textField #description}
-    {submitButton}
+    <div class="mt-2">
+        {(textField #category) {fieldLabel = "Kategori"} {required = True}}
+        {(textField #name) {fieldLabel = "Namn"} {required = True}}
+        {(textField #description) {fieldLabel = "Beskrivning"}}
+        {submitButton {label = "Skapa Verktyg"}}
+    </div>
 |]
