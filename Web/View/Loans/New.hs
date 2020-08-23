@@ -2,18 +2,25 @@ module Web.View.Loans.New where
 import Web.View.Prelude
 
 data NewView = NewView { loan :: Loan
-                       , tool :: Tool
+                       , tools :: [Tool]
                        }
 
 instance View NewView ViewContext where
     html NewView { .. } = [hsx|
-        {renderForm loan}
+        {renderForm tools loan}
     |]
 
-renderForm :: Loan -> Html
-renderForm loan = formFor loan [hsx|
-    {hiddenField #toolId}
-    {textField #borrower}
-    {textField #dateBorrowed}
-    {submitButton}
+renderForm :: [Tool] -> Loan -> Html
+renderForm tools loan = formFor loan [hsx|
+    <div class="mt-2">
+        {(selectField #toolId tools) {fieldLabel = "Verktyg"} {required = True} {placeholder = "Välj ett"}}
+        {(textField #borrower) {fieldLabel = "Lånare"} {required = True}}
+        {(dateField #dateBorrowed) {fieldLabel = "Datum utlånat"} {required = True}}
+        {submitButton {label = "Skapa Lån"}}
+    </div>
 |]
+
+instance CanSelect Tool where
+    type SelectValue Tool = Id Tool
+    selectValue = get #id
+    selectLabel = \m -> (get #category m) <> " - " <> (get #name m)

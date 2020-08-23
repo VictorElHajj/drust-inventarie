@@ -14,7 +14,7 @@ renderForm tool = formFor tool [hsx|
         <h2>Redigera verktyg</h2>
         {(textField #category) {fieldLabel = "Kategori"}}
         {(textField #name) {fieldLabel = "Namn"}}
-        {(textareaField #description) {fieldLabel = "Beskrivning"}}
+        {(textField #description) {fieldLabel = "Beskrivning"}}
         {(textField #status) {fieldLabel = "Status"}}
         {submitButton {label = "Spara"}}
     </div>

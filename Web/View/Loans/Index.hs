@@ -16,7 +16,7 @@ instance View IndexView ViewContext where
                         <th>Verktyg</th>
                         <th>Person</th>
                         <th>Datum Lånat</th>
-                        <th>Datum Lämnat</th>
+                        <th>Datum Retur</th>
                         <th></th>
                         <th></th>
                         <th></th>

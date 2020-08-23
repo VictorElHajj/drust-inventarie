@@ -4,6 +4,7 @@ import Web.Controller.Prelude
 import Web.View.Loans.Index
 import Web.View.Loans.New
 import Web.View.Loans.Edit
+import Data.Functor((<&>))
 
 instance Controller LoansController where
     action LoansAction = do
@@ -12,9 +13,12 @@ instance Controller LoansController where
         render IndexView { .. }
 
     action NewLoanAction { toolId }= do
+        currentTime <- getCurrentTime
+            <&> utctDay
         let loan = newRecord
                 |> set #toolId toolId
-        tool <- fetch toolId
+                |> set #dateBorrowed currentTime
+        tools <- query @Tool |> fetch
         render NewView { .. }
 
     action EditLoanAction { loanId } = do
@@ -38,7 +42,7 @@ instance Controller LoansController where
             |> buildLoan
             |> ifValid \case
                 Left loan -> do
-                    tool <- fetch (get #toolId loan) 
+                    tools <- query @Tool |> fetch
                     render NewView { .. } 
                 Right loan -> do
                     loan <- loan |> createRecord
