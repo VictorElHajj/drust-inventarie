@@ -10,8 +10,11 @@ instance View EditView ViewContext where
 
 renderForm :: Loan -> Html
 renderForm loan = formFor loan [hsx|
-    {textField #toolId}
-    {textField #borrower}
-    {textField #dateBorrowed}
-    {submitButton}
+    <div class="p-4">
+        <h3>Redigera lån</h3>
+        {textField #toolId}
+        {textField #borrower}
+        {textField #dateBorrowed}
+        {submitButton}
+    </div>
 |]

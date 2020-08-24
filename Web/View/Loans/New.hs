@@ -12,7 +12,8 @@ instance View NewView ViewContext where
 
 renderForm :: [Tool] -> Loan -> Html
 renderForm tools loan = formFor loan [hsx|
-    <div class="mt-2">
+    <div class="p-4">
+        <h3>Nytt lån</h3>
         {(selectField #toolId tools) {fieldLabel = "Verktyg"} {required = True} {placeholder = "Välj ett"}}
         {(textField #borrower) {fieldLabel = "Lånare"} {required = True}}
         {(dateField #dateBorrowed) {fieldLabel = "Datum utlånat"} {required = True}}
