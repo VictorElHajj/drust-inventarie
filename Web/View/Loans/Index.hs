@@ -9,7 +9,7 @@ data IndexView = IndexView { loans :: [Loan]
 
 instance View IndexView ViewContext where
     html IndexView { .. } = [hsx|
-        <div class="table-responsive">
+        <div class="table-responsive shadow">
             <table class="table table-sm;" style="border-top:hidden;">
                 <thead class="text-light" style="background-color: #fa6607;">
                     <tr>
