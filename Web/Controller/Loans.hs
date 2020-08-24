@@ -33,8 +33,8 @@ instance Controller LoansController where
                 Left loan -> render EditView { .. }
                 Right loan -> do
                     loan <- loan |> updateRecord
-                    setSuccessMessage "Loan updated"
-                    redirectTo EditLoanAction { .. }
+                    setSuccessMessage "Lån redigerat"
+                    redirectTo LoansAction
 
     action CreateLoanAction = do
         let loan = newRecord @Loan
@@ -46,14 +46,14 @@ instance Controller LoansController where
                     render NewView { .. } 
                 Right loan -> do
                     loan <- loan |> createRecord
-                    setSuccessMessage "Loan created"
+                    setSuccessMessage "Lån skapat"
                     redirectTo LoansAction
 
     action DeleteLoanAction { loanId } = do
         loan <- fetch loanId
         deleteRecord loan
-        setSuccessMessage "Loan deleted"
+        setSuccessMessage "Lån borttaget"
         redirectTo LoansAction
 
 buildLoan loan = loan
-    |> fill @["toolId","borrower","dateBorrowed"]
+    |> fill @["toolId","borrower","dateBorrowed","dateReturned"]
