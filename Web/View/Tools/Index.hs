@@ -5,7 +5,7 @@ data IndexView = IndexView { tools :: [Tool] }
 
 instance View IndexView ViewContext where
     html IndexView { .. } = [hsx|
-        <div class="table-responsive shadow">
+        <div class="table-responsive">
             <table class="table table-sm;" style="border-top:hidden;">
                 <thead class="text-light" style="background-color: #fa6607;">
                 <th style="width:15%;">Kategori</th>

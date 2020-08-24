@@ -37,7 +37,9 @@ defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
             </li>
             </ul>
         </nav>
-        {inner}
+        <div class="shadow">
+            {inner}
+        </div>
     </div>
 </body>
 |]
