@@ -33,7 +33,7 @@ instance Controller ToolsController where
         let tool = newRecord @Tool
         tool
             |> buildTool
-            |> set #status "Tillgänglig"
+            |> set #status Available
             |> ifValid \case
                 Left tool -> render NewView { .. } 
                 Right tool -> do
@@ -48,4 +48,4 @@ instance Controller ToolsController where
         redirectTo ToolsAction
 
 buildTool tool = tool
-    |> fill @["category","name","description"]
+    |> fill @["category","name","description", "status"]

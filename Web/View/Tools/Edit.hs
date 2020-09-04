@@ -1,6 +1,7 @@
 module Web.View.Tools.Edit where
 import Web.View.Prelude
-
+import qualified Text.Blaze.Html5 as Html5
+import qualified IHP.NameSupport
 data EditView = EditView { tool :: Tool }
 
 instance View EditView ViewContext where
@@ -15,7 +16,20 @@ renderForm tool = formFor tool [hsx|
         {(textField #category) {fieldLabel = "Kategori"}}
         {(textField #name) {fieldLabel = "Namn"}}
         {(textField #description) {fieldLabel = "Beskrivning"}}
-        {(textField #status) {fieldLabel = "Status"}}
+        {selectEnum (listSE :: [Status])}
         {submitButton {label = "Spara"}}
     </div>
 |]
+
+selectEnum :: (Show enum, SqlEnum enum) => [enum] -> Html
+selectEnum enums = [hsx|
+<div class="form-group" id="form-group-tool_status">
+    <label class="" for="tool_status">Status</label>
+    <select class="custom-select form-control" name="status">
+        {forEach enums renderEnum}
+    </select>
+</div>
+|]
+    where renderEnum enum = [hsx|
+        <option value={show enum |> toLower}>{showSE enum}</option>
+    |]

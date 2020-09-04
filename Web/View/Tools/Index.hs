@@ -34,7 +34,7 @@ renderTool category tool = [hsx|
         <td></td>
         <td>{get #name tool}</td>
         <td>{get #description tool}</td>
-        <td>{get #status tool}</td>
+        <td>{get #status tool |> showSE}</td>
         <td><a href={NewLoanAction (get #id tool)} class="text-muted">Låna</a></td>
         <td><a href={EditToolAction (get #id tool)} class="text-muted">Ändra</a></td>
         <td><a href={DeleteToolAction (get #id tool)} class="js-delete text-muted">Ta bort</a></td>
