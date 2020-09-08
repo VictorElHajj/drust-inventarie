@@ -2,6 +2,7 @@
 
 module Web.View.Loans.Index where
 import Web.View.Prelude
+import Data.Text (pack)
 
 data IndexView = IndexView { loans :: [Loan]
                            , tools :: [Tool]
@@ -22,14 +23,57 @@ instance View IndexView ViewContext where
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>{forEach loans (renderLoan tools)}</tbody>
+                <tbody>
+                {
+                    let 
+                        activeLoans = filter isLoanActive loans
+                            |> sortBy (\a b -> compare (get #dateBorrowed a) (get #dateBorrowed b))
+                    in
+                        renderCollapsableLoans False "active" "Aktiva Lån" tools activeLoans
+                }
+                {
+                    let 
+                        inactiveLoans = filter (not . isLoanActive) loans
+                            |> sortBy (\b a -> compare (get #dateReturned a) (get #dateReturned b))
+                    in
+                        renderCollapsableLoans True "completed" "Avklarade Lån" tools inactiveLoans
+                }
+                </tbody>
             </table>
         </div>
     |]
 
+isLoanActive loan = get #dateReturned loan
+                    |> \case
+                        Just _ -> False
+                        Nothing -> True
 
-renderLoan tools loan = [hsx|
-    <tr>
+renderCollapsableLoans collapsed collapsable title tools loans = [hsx|
+    <tr style="transform: rotate(0);">
+        <th>
+            <a class="btn btn-link btn-block text-left text-dark stretched-link" data-toggle="collapse" data-target={"#collapse"++collapsable} aria-expanded="false" aria-controls={collapsable}>
+            {title :: Text}
+            </a>
+        </th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    {
+        forEach loans (renderLoan collapsed (collapsable :: Text) tools)
+    }
+|]
+
+collapse :: Bool -> Text
+collapse = \case
+    True -> pack ""
+    False -> pack "show"
+
+renderLoan collapsed collapsable tools loan = [hsx|
+    <tr id={"collapse"++collapsable} class={"collapse "++(collapse collapsed)} style="transition: none;">
         <td>{
             let
                 id = get #toolId loan
