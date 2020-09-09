@@ -25,7 +25,7 @@ defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
     {renderFlashMessages}
     <div class="container mt-4">
         <nav class="navbar navbar-dark navbar-expand shadow" style="background-color: #fa6607;">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
                 <img src="/Drust20.png" width="50" height="50" alt="">
             </a>
             <ul class="navbar-nav">
