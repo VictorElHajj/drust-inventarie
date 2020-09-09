@@ -30,7 +30,7 @@ instance View IndexView ViewContext where
 
 
 renderTool category tool = [hsx|
-    <tr id={"collapse"++category} class="collapse" style="transition: none;">
+    <tr id={"collapse"++(trimSpaces category)} class="collapse" style="transition: none;">
         <td></td>
         <td>{get #name tool}</td>
         <td>{get #description tool}</td>
@@ -44,7 +44,7 @@ renderTool category tool = [hsx|
 renderCategory tools category = [hsx|
     <tr style="transform: rotate(0);">
         <th>
-            <a class="btn btn-link btn-block text-left text-dark stretched-link" data-toggle="collapse" data-target={"#collapse"++category} aria-expanded="false" aria-controls={category}>
+            <a class="btn btn-link btn-block text-left text-dark stretched-link" data-toggle="collapse" data-target={"#collapse"++(trimSpaces category)} aria-expanded="false" aria-controls={trimSpaces category}>
             {category}
             </a>
         </th>
