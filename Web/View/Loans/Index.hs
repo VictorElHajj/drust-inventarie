@@ -1,15 +1,18 @@
 {-# LANGUAGE LambdaCase #-}
 
 module Web.View.Loans.Index where
-import Web.View.Prelude
-import Data.Text (pack)
 
-data IndexView = IndexView { loans :: [Loan]
-                           , tools :: [Tool]
-                           }
+import Data.Text (pack)
+import Web.View.Prelude
+
+data IndexView = IndexView
+  { loans :: [Loan],
+    tools :: [Tool]
+  }
 
 instance View IndexView ViewContext where
-    html IndexView { .. } = [hsx|
+  html IndexView {..} =
+    [hsx|
         <div class="table-responsive">
             <table class="table table-sm;" style="border-top:hidden;">
                 <thead class="text-light" style="background-color: #fa6607;">
@@ -43,12 +46,14 @@ instance View IndexView ViewContext where
         </div>
     |]
 
-isLoanActive loan = get #dateReturned loan
-                    |> \case
-                        Just _ -> False
-                        Nothing -> True
+isLoanActive loan =
+  get #dateReturned loan
+    |> \case
+      Just _ -> False
+      Nothing -> True
 
-renderCollapsableLoans collapsed title tools loans = [hsx|
+renderCollapsableLoans collapsed title tools loans =
+  [hsx|
     <tr style="transform: rotate(0);">
         <th>
             <a class="btn btn-link btn-block text-left text-dark stretched-link" data-toggle="collapse" data-target={"#collapse"++(trimSpaces title)} aria-expanded="false" aria-controls={trimSpaces title}>
@@ -69,10 +74,11 @@ renderCollapsableLoans collapsed title tools loans = [hsx|
 
 collapse :: Bool -> Text
 collapse = \case
-    True -> pack ""
-    False -> pack "show"
+  True -> pack ""
+  False -> pack "show"
 
-renderLoan collapsed title tools loan = [hsx|
+renderLoan collapsed title tools loan =
+  [hsx|
     <tr id={"collapse"++(trimSpaces title)} class={"collapse "++(collapse collapsed)} style="transition: none;">
         <td>{
             let

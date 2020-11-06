@@ -1,10 +1,12 @@
 module Web.View.Tools.Index where
+
 import Web.View.Prelude
 
-data IndexView = IndexView { tools :: [Tool] }
+data IndexView = IndexView {tools :: [Tool]}
 
 instance View IndexView ViewContext where
-    html IndexView { .. } = [hsx|
+  html IndexView {..} =
+    [hsx|
         <div class="table-responsive">
             <table class="table table-sm;" style="border-top:hidden;">
                 <thead class="text-light" style="background-color: #fa6607;">
@@ -28,8 +30,8 @@ instance View IndexView ViewContext where
         </div>
     |]
 
-
-renderTool category tool = [hsx|
+renderTool category tool =
+  [hsx|
     <tr id={"collapse"++(trimSpaces category)} class="collapse" style="transition: none;">
         <td></td>
         <td>{get #name tool}</td>
@@ -41,7 +43,8 @@ renderTool category tool = [hsx|
     </tr>
 |]
 
-renderCategory tools category = [hsx|
+renderCategory tools category =
+  [hsx|
     <tr style="transform: rotate(0);">
         <th>
             <a class="btn btn-link btn-block text-left text-dark stretched-link" data-toggle="collapse" data-target={"#collapse"++(trimSpaces category)} aria-expanded="false" aria-controls={trimSpaces category}>

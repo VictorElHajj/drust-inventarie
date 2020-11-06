@@ -1,16 +1,22 @@
 module Web.View.Tools.Edit where
-import Web.View.Prelude
-import qualified Text.Blaze.Html5 as Html5
+
 import qualified IHP.NameSupport
-data EditView = EditView { tool :: Tool }
+import qualified Text.Blaze.Html5 as Html5
+import Web.View.Prelude
+
+data EditView = EditView {tool :: Tool}
 
 instance View EditView ViewContext where
-    html EditView { .. } = [hsx|
+  html EditView {..} =
+    [hsx|
         {renderForm tool}
     |]
 
 renderForm :: Tool -> Html
-renderForm tool = formFor tool [hsx|
+renderForm tool =
+  formFor
+    tool
+    [hsx|
     <div class="p-4">
         <h3>Redigera verktyg</h3>
         {(textField #category) {fieldLabel = "Kategori"}}
@@ -22,7 +28,8 @@ renderForm tool = formFor tool [hsx|
 |]
 
 selectEnum :: (Show enum, SqlEnum enum) => [enum] -> Html
-selectEnum enums = [hsx|
+selectEnum enums =
+  [hsx|
 <div class="form-group" id="form-group-tool_status">
     <label class="" for="tool_status">Status</label>
     <select class="custom-select form-control" name="status">
@@ -30,6 +37,8 @@ selectEnum enums = [hsx|
     </select>
 </div>
 |]
-    where renderEnum enum = [hsx|
+  where
+    renderEnum enum =
+      [hsx|
         <option value={show enum |> toLower}>{showSE enum}</option>
     |]
