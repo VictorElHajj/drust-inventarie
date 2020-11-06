@@ -14,4 +14,11 @@ CREATE TABLE loans (
     date_returned DATE DEFAULT NULL
 );
 CREATE TYPE status AS ENUM ('available', 'loaned', 'missing');
+CREATE TABLE users (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    last_active DATE NOT NULL
+);
 ALTER TABLE loans ADD CONSTRAINT loans_ref_tool_id FOREIGN KEY (tool_id) REFERENCES tools (id) ON DELETE NO ACTION;
