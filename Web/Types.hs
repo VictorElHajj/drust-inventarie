@@ -19,7 +19,6 @@ data ViewContext = ViewContext
 data ToolsController
     = ToolsAction
     | NewToolAction
-    | ShowToolAction { toolId :: !(Id Tool) }
     | CreateToolAction
     | EditToolAction { toolId :: !(Id Tool) }
     | UpdateToolAction { toolId :: !(Id Tool) }
@@ -29,7 +28,6 @@ data ToolsController
 data LoansController
     = LoansAction
     | NewLoanAction {toolId :: !(Id Tool)}
-    | ShowLoanAction { loanId :: !(Id Loan) }
     | CreateLoanAction
     | EditLoanAction { loanId :: !(Id Loan) }
     | UpdateLoanAction { loanId :: !(Id Loan) }
