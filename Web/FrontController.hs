@@ -1,20 +1,24 @@
 module Web.FrontController where
-import IHP.RouterPrelude
-import IHP.ControllerSupport
+
 import Generated.Types
+import IHP.ControllerSupport
+import IHP.LoginSupport.Middleware
+import IHP.RouterPrelude
+import IHP.Welcome.Controller
+import Web.Controller.Loans
+import Web.Controller.Sessions
+import Web.Controller.Tools
 import Web.Types
 
--- Controller Imports
-import Web.Controller.Loans
-import Web.Controller.Tools
-import IHP.Welcome.Controller
-
 instance FrontController WebApplication where
-    controllers = 
-        [ startPage ToolsAction 
-        -- Generator Marker
-        , parseRoute @LoansController
-        , parseRoute @ToolsController
-        ]
+  controllers =
+    [ startPage ToolsAction,
+      parseRoute @SessionsController,
+      -- Generator Marker
+      parseRoute @LoansController,
+      parseRoute @ToolsController
+    ]
 
-instance InitControllerContext WebApplication
+instance InitControllerContext WebApplication where
+  initContext =
+    initAuthentication @User

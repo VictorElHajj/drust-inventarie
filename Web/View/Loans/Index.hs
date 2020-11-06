@@ -87,7 +87,7 @@ renderLoan collapsed title tools loan =
                 find (\tool -> get #id tool == id) tools
                     |> \x -> case x of -- TODO: Why can't I use LambdaCase here?
                         Nothing -> "Verktyget finns inte"
-                        Just tool -> name tool
+                        Just tool -> name (tool :: Tool)
             }</td>
         <td>{get #borrower loan}</td>
         <td>{get #dateBorrowed loan}</td>
