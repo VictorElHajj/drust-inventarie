@@ -3,6 +3,7 @@ module Web.View.Layout (defaultLayout, Html) where
 import Config ()
 import IHP.Environment
 import qualified IHP.FrameworkConfig as FrameworkConfig
+import IHP.LoginSupport.Helper.View (currentUser, currentUserOrNothing)
 import IHP.ViewPrelude
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
@@ -26,7 +27,7 @@ defaultLayout inner =
 <body>
     {renderFlashMessages}
     <div class="container mt-4">
-        <nav class="navbar navbar-dark navbar-expand shadow" style="background-color: #fa6607;">
+        <nav class="navbar navbar-dark navbar-expand shadow" style={backgroundColor currentUserOrNothing}>
             <a class="navbar-brand" href="/">
                 <img src="/Drust20.png" width="50" height="50" alt="">
             </a>
@@ -91,3 +92,8 @@ metaTags =
     <meta property="og:url" content="TODO"/>
     <meta property="og:description" content="TODO"/>
 |]
+
+backgroundColor :: Maybe a -> String
+backgroundColor = \case
+  (Just _) -> "background-color: #CD0000;" -- Röda färgen på sovjetflaggan
+  Nothing -> "background-color: #FA6607;" -- Sektionsfärg
