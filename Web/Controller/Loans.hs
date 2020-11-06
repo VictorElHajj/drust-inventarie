@@ -32,7 +32,7 @@ instance Controller LoansController where
             |> ifValid \case
                 Left loan -> render EditView { .. }
                 Right loan -> do
-                    loan <- loan |> updateRecord
+                    loan |> updateRecord
                     setSuccessMessage "Lån redigerat"
                     redirectTo LoansAction
 
@@ -45,7 +45,7 @@ instance Controller LoansController where
                     tools <- query @Tool |> fetch
                     render NewView { .. } 
                 Right loan -> do
-                    loan <- loan |> createRecord
+                    loan |> createRecord
                     setSuccessMessage "Lån skapat"
                     redirectTo LoansAction
 

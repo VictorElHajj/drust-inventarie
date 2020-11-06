@@ -25,7 +25,7 @@ instance Controller ToolsController where
             |> ifValid \case
                 Left tool -> render EditView { .. }
                 Right tool -> do
-                    tool <- tool |> updateRecord
+                    tool |> updateRecord
                     setSuccessMessage "Verktyg redigerat"
                     redirectTo ToolsAction
 
@@ -37,7 +37,7 @@ instance Controller ToolsController where
             |> ifValid \case
                 Left tool -> render NewView { .. } 
                 Right tool -> do
-                    tool <- tool |> createRecord
+                    tool |> createRecord
                     setSuccessMessage "Verktyg skapat"
                     redirectTo ToolsAction
 
