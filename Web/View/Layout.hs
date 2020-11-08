@@ -31,16 +31,18 @@ defaultLayout inner =
             <a class="navbar-brand" href="/">
                 <img src="/Drust20.png" width="50" height="50" alt="">
             </a>
-            <ul class="navbar-nav">
-            <li class="nav-item ">
-                <a class={classes ["nav-link", ("active", isActivePath ToolsAction)]} href={ToolsAction}>Verktyg</a>
-            </li>
-            <li class="nav-item">
-                <a class={classes ["nav-link", ("active", isActivePath LoansAction)]} href={LoansAction}>Lån</a>
-            </li>
-            <li class="nav-item">
-                <a class={classes ["nav-link", ("active", isActivePath LoansAction)]} href={NewSessionAction}>Admin</a>
-            </li>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ">
+                    <a class={classes ["nav-link", ("active", isActivePath ToolsAction)]} href={ToolsAction}>Verktyg</a>
+                </li>
+                <li class="nav-item">
+                    <a class={classes ["nav-link", ("active", isActivePath LoansAction)]} href={LoansAction}>Lån</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    {loginOrLogout currentUserOrNothing}
+                </li>
             </ul>
         </nav>
         <div class="shadow">
@@ -97,3 +99,12 @@ backgroundColor :: Maybe a -> String
 backgroundColor = \case
   (Just _) -> "background-color: #CD0000;" -- Röda färgen på sovjetflaggan
   Nothing -> "background-color: #FA6607;" -- Sektionsfärg
+
+loginOrLogout (Just _) =
+  [hsx|
+  <a class={classes ["nav-link", "js-delete", "js-delete-no-confirm"]} href={DeleteSessionAction}> Logga ut </a>
+|]
+loginOrLogout (Nothing) =
+  [hsx|
+  <a class={classes ["nav-link"]} href={NewSessionAction}> Logga in som DRust </a>
+|]
