@@ -37,9 +37,7 @@ renderTool category tool =
         <td>{get #name tool}</td>
         <td>{get #description tool}</td>
         <td>{get #status tool |> showSE}</td>
-        <td><a href={NewLoanAction (get #id tool)} class="text-muted">Låna</a></td>
-        <td><a href={EditToolAction (get #id tool)} class="text-muted">Ändra</a></td>
-        <td><a href={DeleteToolAction (get #id tool)} class="js-delete text-muted">Ta bort</a></td>
+        {displayAdminOptions tool currentUserOrNothing}
     </tr>
 |]
 
@@ -65,3 +63,18 @@ renderCategory tools category =
             forEach toolsInCategory (renderTool category)
     }
 |]
+
+displayAdminOptions tool =
+  \case
+    (Just _) ->
+      [hsx| 
+        <td><a href={NewLoanAction (get #id tool)} class="text-muted">Låna</a></td>
+        <td><a href={EditToolAction (get #id tool)} class="text-muted">Ändra</a></td>
+        <td><a href={DeleteToolAction (get #id tool)} class="js-delete text-muted">Ta bort</a></td>
+    |]
+    Nothing ->
+      [hsx| 
+        <td></td>
+        <td></td>
+        <td></td>
+    |]

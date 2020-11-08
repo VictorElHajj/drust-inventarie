@@ -92,7 +92,19 @@ renderLoan collapsed title tools loan =
         <td>{get #borrower loan}</td>
         <td>{get #dateBorrowed loan}</td>
         <td>{get #dateReturned loan}</td>
-        <td><a href={EditLoanAction (get #id loan)} class="text-muted">Ändra</a></td>
-        <td><a href={DeleteLoanAction (get #id loan)} class="js-delete text-muted">Ta bort</a></td>
+        {displayAdminOptions loan currentUserOrNothing}
     </tr>
 |]
+
+displayAdminOptions loan =
+  \case
+    (Just _) ->
+      [hsx| 
+        <td><a href={EditLoanAction (get #id loan)} class="text-muted">Ändra</a></td>
+        <td><a href={DeleteLoanAction (get #id loan)} class="js-delete text-muted">Ta bort</a></td>
+    |]
+    Nothing ->
+      [hsx| 
+        <td></td>
+        <td></td>
+    |]
