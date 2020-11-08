@@ -12,6 +12,7 @@ instance Controller LoansController where
     tools <- query @Tool |> fetch
     render IndexView {..}
   action NewLoanAction {toolId} = do
+    ensureIsUser
     currentTime <-
       getCurrentTime
         <&> utctDay
@@ -22,9 +23,11 @@ instance Controller LoansController where
     tools <- query @Tool |> fetch
     render NewView {..}
   action EditLoanAction {loanId} = do
+    ensureIsUser
     loan <- fetch loanId
     render EditView {..}
   action UpdateLoanAction {loanId} = do
+    ensureIsUser
     loan <- fetch loanId
     loan
       |> buildLoan
@@ -35,6 +38,7 @@ instance Controller LoansController where
           setSuccessMessage "Lån redigerat"
           redirectTo LoansAction
   action CreateLoanAction = do
+    ensureIsUser
     let loan = newRecord @Loan
     loan
       |> buildLoan
@@ -47,6 +51,7 @@ instance Controller LoansController where
           setSuccessMessage "Lån skapat"
           redirectTo LoansAction
   action DeleteLoanAction {loanId} = do
+    ensureIsUser
     loan <- fetch loanId
     deleteRecord loan
     setSuccessMessage "Lån borttaget"

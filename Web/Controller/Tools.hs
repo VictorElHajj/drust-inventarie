@@ -10,12 +10,15 @@ instance Controller ToolsController where
     tools <- query @Tool |> fetch
     render IndexView {..}
   action NewToolAction = do
+    ensureIsUser
     let tool = newRecord
     render NewView {..}
   action EditToolAction {toolId} = do
+    ensureIsUser
     tool <- fetch toolId
     render EditView {..}
   action UpdateToolAction {toolId} = do
+    ensureIsUser
     tool <- fetch toolId
     tool
       |> buildTool
@@ -26,6 +29,7 @@ instance Controller ToolsController where
           setSuccessMessage "Verktyg redigerat"
           redirectTo ToolsAction
   action CreateToolAction = do
+    ensureIsUser
     let tool = newRecord @Tool
     tool
       |> buildTool
@@ -37,6 +41,7 @@ instance Controller ToolsController where
           setSuccessMessage "Verktyg skapat"
           redirectTo ToolsAction
   action DeleteToolAction {toolId} = do
+    ensureIsUser
     tool <- fetch toolId
     deleteRecord tool
     setSuccessMessage "Verktyg borttaget"
