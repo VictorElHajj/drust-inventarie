@@ -50,3 +50,5 @@ instance Controller ToolsController where
 buildTool tool =
   tool
     |> fill @["category", "name", "description", "status"]
+    |> validateField #category nonEmpty
+    |> validateField #name nonEmpty
