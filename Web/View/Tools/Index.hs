@@ -1,5 +1,6 @@
 module Web.View.Tools.Index where
 
+import Text.Blaze.Internal (MarkupM)
 import Web.View.Prelude
 
 data IndexView = IndexView {tools :: [Tool]}
@@ -64,6 +65,7 @@ renderCategory tools category =
     }
 |]
 
+displayAdminOptions :: HasField "id" model (Id' "tools") => model -> Maybe User -> MarkupM ()
 displayAdminOptions tool =
   \case
     (Just _) ->

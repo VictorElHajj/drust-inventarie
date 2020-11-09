@@ -3,6 +3,7 @@
 module Web.View.Loans.Index where
 
 import Data.Text (pack)
+import Text.Blaze.Internal (MarkupM)
 import Web.View.Prelude
 
 data IndexView = IndexView
@@ -96,6 +97,7 @@ renderLoan collapsed title tools loan =
     </tr>
 |]
 
+displayAdminOptions :: HasField "id" model (Id' "loans") => model -> Maybe User -> MarkupM ()
 displayAdminOptions loan =
   \case
     (Just _) ->

@@ -1,12 +1,14 @@
 module Web.View.Layout (defaultLayout, Html) where
 
 import Config ()
+import Generated.Types (User)
 import IHP.Environment
 import qualified IHP.FrameworkConfig as FrameworkConfig
 import IHP.LoginSupport.Helper.View (currentUser, currentUserOrNothing)
 import IHP.ViewPrelude
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
+import Text.Blaze.Internal (MarkupM)
 import Web.Routes
 import Web.Types
 
@@ -95,11 +97,12 @@ metaTags =
     <meta property="og:description" content="TODO"/>
 |]
 
-backgroundColor :: Maybe a -> String
+backgroundColor :: Maybe User -> String
 backgroundColor = \case
   (Just _) -> "background-color: #CD0000;" -- Röda färgen på sovjetflaggan
   Nothing -> "background-color: #FA6607;" -- Sektionsfärg
 
+loginOrLogout :: Maybe User -> MarkupM ()
 loginOrLogout (Just _) =
   [hsx|
   <a class={classes ["nav-link", "js-delete", "js-delete-no-confirm"]} href={DeleteSessionAction}> Logga ut </a>
