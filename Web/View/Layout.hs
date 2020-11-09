@@ -40,6 +40,7 @@ defaultLayout inner =
                 <li class="nav-item">
                     <a class={classes ["nav-link", ("active", isActivePath LoansAction)]} href={LoansAction}>Lån</a>
                 </li>
+                {displayBorrower currentUserOrNothing}
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -111,3 +112,11 @@ loginOrLogout (Nothing) =
   [hsx|
   <a class={classes ["nav-link"]} href={NewSessionAction}> Logga in som DRust </a>
 |]
+
+displayBorrower :: Maybe User -> MarkupM ()
+displayBorrower (Just _) =
+  [hsx|
+  <a class={classes ["nav-link"]} href={BorrowersAction}> Lånare </a>
+|]
+displayBorrower (Nothing) =
+  [hsx||]
