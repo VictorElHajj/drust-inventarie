@@ -20,7 +20,14 @@ instance View IndexView ViewContext where
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>{forEach borrowers renderBorrower}</tbody>
+                <tbody>
+                {
+                    let 
+                        sortedBorrowers = sortBy ((flip compare) `on` (get #lastActive)) borrowers
+                    in
+                        forEach sortedBorrowers renderBorrower
+                }   
+                </tbody>
             </table>
             <a class="btn btn-light" href={NewBorrowerAction} role="button">Ny</a>
         </div>
