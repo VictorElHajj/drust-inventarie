@@ -1,10 +1,10 @@
 module Web.Controller.Borrowers where
 
+import Data.Functor ((<&>))
 import Web.Controller.Prelude
 import Web.View.Borrowers.Edit
 import Web.View.Borrowers.Index
 import Web.View.Borrowers.New
-import Web.View.Borrowers.Show
 
 instance Controller BorrowersController where
   beforeAction = ensureIsUser
@@ -12,9 +12,15 @@ instance Controller BorrowersController where
   action BorrowersAction = do
     borrowers <- query @Borrower |> fetch
     render IndexView {..}
-  action NewBorrowerAction = do
-    let borrower = newRecord
-    render NewView {..}
+  action NewBorrowerAction =
+    do
+      currentTime <-
+        getCurrentTime
+          <&> utctDay
+      let borrower =
+            newRecord
+              |> set #lastActive currentTime
+      render NewView {..}
   action EditBorrowerAction {borrowerId} = do
     borrower <- fetch borrowerId
     render EditView {..}
