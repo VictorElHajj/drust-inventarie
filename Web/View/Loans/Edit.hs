@@ -21,6 +21,6 @@ renderForm loan =
         {(textField #borrower) {fieldLabel = "Lånare"} {required = True}}
         {(dateField #dateBorrowed) {fieldLabel = "Datum Lånat"} {required = True}}
         {(dateField #dateReturned) {fieldLabel = "Datum Retur"}}
-        {submitButton}
+        {submitButton {label = "Spara"}}
     </div>
 |]
