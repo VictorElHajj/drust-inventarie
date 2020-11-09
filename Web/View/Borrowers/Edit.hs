@@ -1,25 +1,26 @@
 module Web.View.Borrowers.Edit where
+
 import Web.View.Prelude
 
-data EditView = EditView { borrower :: Borrower }
+data EditView = EditView {borrower :: Borrower}
 
 instance View EditView ViewContext where
-    html EditView { .. } = [hsx|
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={BorrowersAction}>Borrowers</a></li>
-                <li class="breadcrumb-item active">Edit Borrower</li>
-            </ol>
-        </nav>
-        <h1>Edit Borrower</h1>
+  html EditView {..} =
+    [hsx|
         {renderForm borrower}
     |]
 
 renderForm :: Borrower -> Html
-renderForm borrower = formFor borrower [hsx|
-    {(textField #name)}
-    {(textField #email)}
-    {(textField #phone)}
-    {(textField #lastActive)}
-    {submitButton}
+renderForm borrower =
+  formFor
+    borrower
+    [hsx|
+    <div class="p-4">
+        <h3>Redigera lånare</h3>
+        {(textField #name) {fieldLabel = "Namn"} {required = True}}
+        {(textField #email) {fieldLabel = "E-post"} {required = True}}
+        {(textField #phone) {fieldLabel = "Telefon"} {required = True}}
+        {(dateField #lastActive) {fieldLabel = "Senaste lån"} {required = True}}
+        {submitButton {label = "Spara"}}
+    </div>
 |]

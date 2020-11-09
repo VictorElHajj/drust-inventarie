@@ -7,17 +7,14 @@ data IndexView = IndexView {borrowers :: [Borrower]}
 instance View IndexView ViewContext where
   html IndexView {..} =
     [hsx|
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active"><a href={BorrowersAction}>Borrowers</a></li>
-            </ol>
-        </nav>
-        <h1>Index <a href={pathTo NewBorrowerAction} class="btn btn-primary ml-4">+ New</a></h1>
         <div class="table-responsive">
-            <table class="table">
-                <thead>
+            <table class="table table-sm;" style="border-top:hidden;">
+                <thead class="text-light" style="background-color: #fa6607;">
                     <tr>
-                        <th>Borrower</th>
+                        <th>Lånare</th>
+                        <th>E-post</th>
+                        <th>Telefon</th>
+                        <th>Senaste lån</th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -25,6 +22,7 @@ instance View IndexView ViewContext where
                 </thead>
                 <tbody>{forEach borrowers renderBorrower}</tbody>
             </table>
+            <a class="btn btn-light" href={NewBorrowerAction} role="button">Ny</a>
         </div>
     |]
 
@@ -35,7 +33,7 @@ renderBorrower borrower =
         <td>{get #email borrower}</td>
         <td>{get #phone borrower}</td>
         <td>{get #lastActive borrower}</td>
-        <td><a href={EditBorrowerAction (get #id borrower)} class="text-muted">Edit</a></td>
-        <td><a href={DeleteBorrowerAction (get #id borrower)} class="js-delete text-muted">Delete</a></td>
+        <td><a href={EditBorrowerAction (get #id borrower)} class="text-muted">Ändra</a></td>
+        <td><a href={DeleteBorrowerAction (get #id borrower)} class="js-delete text-muted">Ta bort</a></td>
     </tr>
 |]

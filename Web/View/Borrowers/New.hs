@@ -1,25 +1,26 @@
 module Web.View.Borrowers.New where
+
 import Web.View.Prelude
 
-data NewView = NewView { borrower :: Borrower }
+data NewView = NewView {borrower :: Borrower}
 
 instance View NewView ViewContext where
-    html NewView { .. } = [hsx|
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={BorrowersAction}>Borrowers</a></li>
-                <li class="breadcrumb-item active">New Borrower</li>
-            </ol>
-        </nav>
-        <h1>New Borrower</h1>
+  html NewView {..} =
+    [hsx|
         {renderForm borrower}
     |]
 
 renderForm :: Borrower -> Html
-renderForm borrower = formFor borrower [hsx|
-    {(textField #name)}
-    {(textField #email)}
-    {(textField #phone)}
-    {(textField #lastActive)}
-    {submitButton}
+renderForm borrower =
+  formFor
+    borrower
+    [hsx|
+    <div class="p-4">
+        <h3>Skapa ny lånare</h3>
+        {(textField #name) {fieldLabel = "Namn"} {required = True}}
+        {(textField #email) {fieldLabel = "E-post"} {required = True}}
+        {(textField #phone) {fieldLabel = "Telefon"} {required = True}}
+        {(dateField #lastActive) {fieldLabel = "Senaste lån"} {required = True}}
+        {submitButton {label = "Spara"}}
+    </div>
 |]
