@@ -5,6 +5,7 @@ import IHP.ControllerSupport
 import IHP.LoginSupport.Middleware
 import IHP.RouterPrelude
 import IHP.Welcome.Controller
+import Web.Controller.Borrowers
 import Web.Controller.Loans
 import Web.Controller.Sessions
 import Web.Controller.Tools
@@ -16,7 +17,8 @@ instance FrontController WebApplication where
       parseRoute @SessionsController,
       -- Generator Marker
       parseRoute @LoansController,
-      parseRoute @ToolsController
+      parseRoute @ToolsController,
+      parseRoute @BorrowersController
     ]
 
 instance InitControllerContext WebApplication where

@@ -14,3 +14,7 @@ instance AutoRoute LoansController
 type instance ModelControllerMap WebApplication Loan = LoansController
 
 instance AutoRoute SessionsController
+
+instance AutoRoute BorrowersController
+type instance ModelControllerMap WebApplication Borrower = BorrowersController
+
