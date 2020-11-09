@@ -10,6 +10,7 @@ instance Controller LoansController where
   action LoansAction = do
     loans <- query @Loan |> fetch
     tools <- query @Tool |> fetch
+    borrowers <- query @Borrower |> fetch
     render IndexView {..}
   action NewLoanAction {toolId} = do
     ensureIsUser
@@ -21,6 +22,7 @@ instance Controller LoansController where
             |> set #toolId toolId
             |> set #dateBorrowed currentTime
     tools <- query @Tool |> fetch
+    borrowers <- query @Borrower |> fetch
     render NewView {..}
   action EditLoanAction {loanId} = do
     ensureIsUser
@@ -45,6 +47,7 @@ instance Controller LoansController where
       |> ifValid \case
         Left loan -> do
           tools <- query @Tool |> fetch
+          borrowers <- query @Borrower |> fetch
           render NewView {..}
         Right loan -> do
           loan |> createRecord
@@ -59,4 +62,4 @@ instance Controller LoansController where
 
 buildLoan loan =
   loan
-    |> fill @["toolId", "borrower", "dateBorrowed", "dateReturned"]
+    |> fill @["toolId", "borrowerId", "dateBorrowed", "dateReturned"]

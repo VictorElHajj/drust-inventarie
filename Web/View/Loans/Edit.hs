@@ -18,7 +18,6 @@ renderForm loan =
     <div class="p-4">
         <h3>Redigera lån</h3>
         {hiddenField #toolId}
-        {(textField #borrower) {fieldLabel = "Lånare"} {required = True}}
         {(dateField #dateBorrowed) {fieldLabel = "Datum Lånat"} {required = True}}
         {(dateField #dateReturned) {fieldLabel = "Datum Retur"}}
         {submitButton {label = "Spara"}}

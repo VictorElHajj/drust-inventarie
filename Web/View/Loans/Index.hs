@@ -8,7 +8,8 @@ import Web.View.Prelude
 
 data IndexView = IndexView
   { loans :: [Loan],
-    tools :: [Tool]
+    tools :: [Tool],
+    borrowers :: [Borrower]
   }
 
 instance View IndexView ViewContext where
@@ -33,14 +34,14 @@ instance View IndexView ViewContext where
                         activeLoans = filter isLoanActive loans
                             |> sortBy (\a b -> compare (get #dateBorrowed a) (get #dateBorrowed b))
                     in
-                        renderCollapsableLoans False "Aktiva Lån" tools activeLoans
+                        renderCollapsableLoans False "Aktiva Lån" tools borrowers activeLoans
                 }
                 {
                     let 
                         inactiveLoans = filter (not . isLoanActive) loans
                             |> sortBy (\b a -> compare (get #dateReturned a) (get #dateReturned b))
                     in
-                        renderCollapsableLoans True "Avklarade Lån" tools inactiveLoans
+                        renderCollapsableLoans True "Avklarade Lån" tools borrowers inactiveLoans
                 }
                 </tbody>
             </table>
@@ -53,7 +54,7 @@ isLoanActive loan =
       Just _ -> False
       Nothing -> True
 
-renderCollapsableLoans collapsed title tools loans =
+renderCollapsableLoans collapsed title tools borrowers loans =
   [hsx|
     <tr style="transform: rotate(0);">
         <th>
@@ -69,7 +70,7 @@ renderCollapsableLoans collapsed title tools loans =
         <td></td>
     </tr>
     {
-        forEach loans (renderLoan collapsed title tools)
+        forEach loans (renderLoan collapsed title tools borrowers)
     }
 |]
 
@@ -78,10 +79,11 @@ collapse = \case
   True -> pack ""
   False -> pack "show"
 
-renderLoan collapsed title tools loan =
+renderLoan collapsed title tools borrowers loan =
   [hsx|
     <tr id={"collapse"++(trimSpaces title)} class={"collapse "++(collapse collapsed)} style="transition: none;">
-        <td>{
+        <td>
+        {
             let
                 id = get #toolId loan
             in 
@@ -89,8 +91,19 @@ renderLoan collapsed title tools loan =
                     |> \x -> case x of -- TODO: Why can't I use LambdaCase here?
                         Nothing -> "Verktyget finns inte"
                         Just tool -> name (tool :: Tool)
-            }</td>
-        <td>{get #borrower loan}</td>
+        }
+        </td>
+        <td>
+        {
+            let
+                id = get #borrowerId loan
+            in 
+                find (\borrower -> get #id borrower == id) borrowers
+                    |> \x -> case x of 
+                        Nothing -> "Lånaren finns inte"
+                        Just borrower -> name (borrower :: Borrower)
+        }
+        </td>
         <td>{get #dateBorrowed loan}</td>
         <td>{get #dateReturned loan}</td>
         {displayAdminOptions loan currentUserOrNothing}

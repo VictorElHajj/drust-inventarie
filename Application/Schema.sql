@@ -10,9 +10,9 @@ CREATE TABLE tools (
 CREATE TABLE loans (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
     tool_id UUID NOT NULL,
-    borrower TEXT NOT NULL,
     date_borrowed DATE NOT NULL,
-    date_returned DATE DEFAULT NULL
+    date_returned DATE DEFAULT NULL,
+    borrower_id UUID NOT NULL
 );
 CREATE TABLE borrowers (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
@@ -28,4 +28,5 @@ CREATE TABLE users (
     locked_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,
     failed_login_attempts INT DEFAULT 0 NOT NULL
 );
+ALTER TABLE loans ADD CONSTRAINT loans_ref_borrower_id FOREIGN KEY (borrower_id) REFERENCES borrowers (id) ON DELETE NO ACTION;
 ALTER TABLE loans ADD CONSTRAINT loans_ref_tool_id FOREIGN KEY (tool_id) REFERENCES tools (id) ON DELETE NO ACTION;
