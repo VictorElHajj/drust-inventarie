@@ -50,6 +50,11 @@ instance Controller LoansController where
           borrowers <- query @Borrower |> fetch
           render NewView {..}
         Right loan -> do
+          let toolId = get #toolId loan
+          tool <-
+            fetch toolId
+              <&> set #status Loaned
+          tool |> updateRecord
           loan |> createRecord
           setSuccessMessage "Lån skapat"
           redirectTo LoansAction
