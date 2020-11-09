@@ -15,9 +15,6 @@ instance Controller BorrowersController where
   action NewBorrowerAction = do
     let borrower = newRecord
     render NewView {..}
-  action ShowBorrowerAction {borrowerId} = do
-    borrower <- fetch borrowerId
-    render ShowView {..}
   action EditBorrowerAction {borrowerId} = do
     borrower <- fetch borrowerId
     render EditView {..}
