@@ -47,11 +47,10 @@ instance HasNewSessionUrl User where
   newSessionUrl _ = "/NewSession"
 
 data BorrowersController
-    = BorrowersAction
-    | NewBorrowerAction
-    | ShowBorrowerAction { borrowerId :: !(Id Borrower) }
-    | CreateBorrowerAction
-    | EditBorrowerAction { borrowerId :: !(Id Borrower) }
-    | UpdateBorrowerAction { borrowerId :: !(Id Borrower) }
-    | DeleteBorrowerAction { borrowerId :: !(Id Borrower) }
-    deriving (Eq, Show, Data)
+  = BorrowersAction
+  | NewBorrowerAction
+  | CreateBorrowerAction
+  | EditBorrowerAction {borrowerId :: !(Id Borrower)}
+  | UpdateBorrowerAction {borrowerId :: !(Id Borrower)}
+  | DeleteBorrowerAction {borrowerId :: !(Id Borrower)}
+  deriving (Eq, Show, Data)

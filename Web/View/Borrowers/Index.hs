@@ -1,10 +1,12 @@
 module Web.View.Borrowers.Index where
+
 import Web.View.Prelude
 
-data IndexView = IndexView { borrowers :: [Borrower] }
+data IndexView = IndexView {borrowers :: [Borrower]}
 
 instance View IndexView ViewContext where
-    html IndexView { .. } = [hsx|
+  html IndexView {..} =
+    [hsx|
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active"><a href={BorrowersAction}>Borrowers</a></li>
@@ -26,11 +28,13 @@ instance View IndexView ViewContext where
         </div>
     |]
 
-
-renderBorrower borrower = [hsx|
+renderBorrower borrower =
+  [hsx|
     <tr>
-        <td>{borrower}</td>
-        <td><a href={ShowBorrowerAction (get #id borrower)}>Show</a></td>
+        <td>{get #name borrower}</td>
+        <td>{get #email borrower}</td>
+        <td>{get #phone borrower}</td>
+        <td>{get #lastActive borrower}</td>
         <td><a href={EditBorrowerAction (get #id borrower)} class="text-muted">Edit</a></td>
         <td><a href={DeleteBorrowerAction (get #id borrower)} class="js-delete text-muted">Delete</a></td>
     </tr>
