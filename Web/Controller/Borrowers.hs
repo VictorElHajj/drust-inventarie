@@ -32,7 +32,7 @@ instance Controller BorrowersController where
         Left borrower -> render EditView {..}
         Right borrower -> do
           borrower <- borrower |> updateRecord
-          setSuccessMessage "Borrower updated"
+          setSuccessMessage "Lånare redigerad"
           redirectTo BorrowersAction
   action CreateBorrowerAction = do
     let borrower = newRecord @Borrower
@@ -42,12 +42,12 @@ instance Controller BorrowersController where
         Left borrower -> render NewView {..}
         Right borrower -> do
           borrower <- borrower |> createRecord
-          setSuccessMessage "Borrower created"
+          setSuccessMessage "Lånare skapad"
           redirectTo BorrowersAction
   action DeleteBorrowerAction {borrowerId} = do
     borrower <- fetch borrowerId
     deleteRecord borrower
-    setSuccessMessage "Borrower deleted"
+    setSuccessMessage "Lånare borttagen"
     redirectTo BorrowersAction
 
 buildBorrower borrower =
