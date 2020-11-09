@@ -33,7 +33,7 @@ instance Controller BorrowersController where
         Right borrower -> do
           borrower <- borrower |> updateRecord
           setSuccessMessage "Borrower updated"
-          redirectTo EditBorrowerAction {..}
+          redirectTo BorrowersAction
   action CreateBorrowerAction = do
     let borrower = newRecord @Borrower
     borrower
