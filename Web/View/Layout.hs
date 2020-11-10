@@ -40,7 +40,7 @@ defaultLayout inner =
                 <li class="nav-item">
                     <a class={classes ["nav-link", ("active", isActivePath LoansAction)]} href={LoansAction}>Lån</a>
                 </li>
-                {displayBorrower currentUserOrNothing}
+                {displayBorrower currentUserOrNothing (isActivePath BorrowersAction)}
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -124,10 +124,10 @@ displayGDPR (Just _) =
 displayGDPR (Nothing) =
   [hsx||]
 
-displayBorrower :: Maybe User -> MarkupM ()
-displayBorrower (Just _) =
+displayBorrower :: Maybe User -> Bool -> MarkupM ()
+displayBorrower (Just _) isActive =
   [hsx|
-  <a class={classes ["nav-link"]} href={BorrowersAction}> Lånare </a>
+    <a class={classes ["nav-link", ("active", isActive)]} href={BorrowersAction}>Lånare</a>
 |]
-displayBorrower (Nothing) =
+displayBorrower (Nothing) _ =
   [hsx||]
