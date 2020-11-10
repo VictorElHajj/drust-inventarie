@@ -44,7 +44,7 @@ defaultLayout inner =
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    {displayGDPR currentUserOrNothing}
+                    {displayAdmin currentUserOrNothing}
                 </li>
                 <li class="nav-item">
                     {loginOrLogout currentUserOrNothing}
@@ -116,13 +116,23 @@ loginOrLogout (Nothing) =
   <a class={classes ["nav-link"]} href={NewSessionAction}> Logga in som DRust </a>
 |]
 
+displayAdmin :: Maybe User -> MarkupM ()
+displayAdmin (Just _) =
+  [hsx|
+  <a class={classes ["nav-link"]} href={UserAction}>Adminsida</a>
+|]
+displayAdmin (Nothing) =
+  [hsx|
+  |]
+
 displayGDPR :: Maybe User -> MarkupM ()
 displayGDPR (Just _) =
   [hsx|
    <a href={DeletePIIAction} class="js-delete nav-link">GDPR</a>
 |]
 displayGDPR (Nothing) =
-  [hsx||]
+  [hsx|
+  |]
 
 displayBorrower :: Maybe User -> Bool -> MarkupM ()
 displayBorrower (Just _) isActive =
@@ -130,4 +140,5 @@ displayBorrower (Just _) isActive =
     <a class={classes ["nav-link", ("active", isActive)]} href={BorrowersAction}>Lånare</a>
 |]
 displayBorrower (Nothing) _ =
-  [hsx||]
+  [hsx|
+  |]

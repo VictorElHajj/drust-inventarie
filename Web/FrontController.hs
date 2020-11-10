@@ -9,6 +9,7 @@ import Web.Controller.Borrowers
 import Web.Controller.Loans
 import Web.Controller.Sessions
 import Web.Controller.Tools
+import Web.Controller.Users
 import Web.Types
 
 instance FrontController WebApplication where
@@ -16,6 +17,7 @@ instance FrontController WebApplication where
     [ startPage ToolsAction,
       parseRoute @SessionsController,
       -- Generator Marker
+      parseRoute @UsersController,
       parseRoute @LoansController,
       parseRoute @ToolsController,
       parseRoute @BorrowersController

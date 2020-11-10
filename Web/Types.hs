@@ -56,3 +56,9 @@ data BorrowersController
   | DeleteBorrowerAction {borrowerId :: !(Id Borrower)}
   | DeletePIIAction
   deriving (Eq, Show, Data)
+
+data UsersController
+  = UserAction
+  | EditUserAction {userId :: !(Id User)}
+  | UpdateUserAction {userId :: !(Id User)}
+  deriving (Eq, Show, Data)
