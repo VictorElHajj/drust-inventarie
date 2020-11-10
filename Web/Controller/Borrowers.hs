@@ -52,6 +52,7 @@ instance Controller BorrowersController where
 
 buildBorrower borrower =
   borrower
-    |> fill @["name", "email", "phone", "lastActive"]
+    |> fill @["name", "cid", "email", "phone", "lastActive"]
     |> validateField #name nonEmpty
+    |> validateField #cid nonEmpty
     |> validateField #email isEmail

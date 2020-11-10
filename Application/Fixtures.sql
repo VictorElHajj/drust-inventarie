@@ -16,9 +16,6 @@ SET SESSION AUTHORIZATION DEFAULT;
 
 ALTER TABLE public.borrowers DISABLE TRIGGER ALL;
 
-INSERT INTO public.borrowers (id, name, email, phone, last_active) VALUES ('48f135d4-b41b-493e-93a7-e8917d41f5c6', 'Hacke Hackspett', 'hacke@dtek.se', '123456789', '1858-11-17');
-INSERT INTO public.borrowers (id, name, email, phone, last_active) VALUES ('d62ea240-6218-4b97-adab-4fed6e2e9efa', 'Kalle Anka', 'kalleutanbyxor@elektroteknolog.se', '1239019090', '2020-11-09');
-INSERT INTO public.borrowers (id, name, email, phone, last_active) VALUES ('619c5cb1-3e37-4896-9c34-6ae2dcf686dc', 'Fantomen', 'fantomen@ftek.se', '123423461356', '1858-11-17');
 
 
 ALTER TABLE public.borrowers ENABLE TRIGGER ALL;
@@ -34,6 +31,10 @@ ALTER TABLE public.tools ENABLE TRIGGER ALL;
 
 ALTER TABLE public.loans DISABLE TRIGGER ALL;
 
+INSERT INTO public.loans (id, tool_id, date_borrowed, date_returned, borrower_id) VALUES ('e5ef01a3-6e5a-4bd4-84a8-83e7ee9c4e80', 'd26032c5-5513-41cd-992c-e698ff773321', '2020-11-09', '2020-11-10', 'd62ea240-6218-4b97-adab-4fed6e2e9efa');
+INSERT INTO public.loans (id, tool_id, date_borrowed, date_returned, borrower_id) VALUES ('cbf6a53d-981b-4006-8070-eabb49419ea2', 'd26032c5-5513-41cd-992c-e698ff773321', '2020-11-09', NULL, 'd62ea240-6218-4b97-adab-4fed6e2e9efa');
+INSERT INTO public.loans (id, tool_id, date_borrowed, date_returned, borrower_id) VALUES ('69423609-e1ba-4dc3-ae43-c431d0735063', 'd26032c5-5513-41cd-992c-e698ff773321', '2020-11-09', '2020-11-10', 'd62ea240-6218-4b97-adab-4fed6e2e9efa');
+INSERT INTO public.loans (id, tool_id, date_borrowed, date_returned, borrower_id) VALUES ('a3b643db-4f95-410b-8717-3fd529fd5c58', 'd26032c5-5513-41cd-992c-e698ff773321', '2020-11-10', '2020-11-10', '48f135d4-b41b-493e-93a7-e8917d41f5c6');
 
 
 ALTER TABLE public.loans ENABLE TRIGGER ALL;

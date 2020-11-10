@@ -36,4 +36,4 @@ instance CanSelect Tool where
 instance CanSelect Borrower where
   type SelectValue Borrower = Id Borrower
   selectValue = get #id
-  selectLabel = get #name
+  selectLabel = \borrower -> get #name borrower <> " - " <> get #cid borrower

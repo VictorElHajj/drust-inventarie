@@ -36,7 +36,7 @@ instance View IndexView ViewContext where
 renderBorrower borrower =
   [hsx|
     <tr>
-        <td>{get #name borrower}</td>
+        <td>{get #name borrower <> " - " <> get #cid borrower}</td>
         <td>{get #email borrower}</td>
         <td>{get #phone borrower}</td>
         <td>{get #lastActive borrower}</td>
