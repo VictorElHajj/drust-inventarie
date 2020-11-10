@@ -64,6 +64,22 @@ instance Controller LoansController where
     deleteRecord loan
     setSuccessMessage "Lån borttaget"
     redirectTo LoansAction
+  action ReturnLoanAction {loanId} = do
+    ensureIsUser
+    currentTime <-
+      getCurrentTime
+        <&> utctDay
+    loan <-
+      fetch loanId
+        <&> set #dateReturned (Just currentTime)
+    loan |> updateRecord
+    let toolId = get #toolId loan
+    tool <-
+      fetch toolId
+        <&> set #status Available
+    tool |> updateRecord
+    setSuccessMessage "Verktyg återlämnat"
+    redirectTo LoansAction
 
 buildLoan loan =
   loan

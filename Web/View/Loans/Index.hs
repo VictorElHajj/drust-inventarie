@@ -116,10 +116,12 @@ displayAdminOptions loan =
     (Just _) ->
       [hsx| 
         <td><a href={EditLoanAction (get #id loan)} class="text-muted">Ändra</a></td>
+        <td><a href={ReturnLoanAction (get #id loan)} class="text-muted">Retur</a></td>
         <td><a href={DeleteLoanAction (get #id loan)} class="js-delete text-muted">Ta bort</a></td>
     |]
     Nothing ->
       [hsx| 
+        <td></td>
         <td></td>
         <td></td>
     |]

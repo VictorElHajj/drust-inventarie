@@ -35,6 +35,7 @@ data LoansController
   | EditLoanAction {loanId :: !(Id Loan)}
   | UpdateLoanAction {loanId :: !(Id Loan)}
   | DeleteLoanAction {loanId :: !(Id Loan)}
+  | ReturnLoanAction {loanId :: !(Id Loan)}
   deriving (Eq, Show, Data)
 
 data SessionsController
