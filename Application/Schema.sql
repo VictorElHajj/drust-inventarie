@@ -28,5 +28,5 @@ CREATE TABLE users (
     locked_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,
     failed_login_attempts INT DEFAULT 0 NOT NULL
 );
-ALTER TABLE loans ADD CONSTRAINT loans_ref_borrower_id FOREIGN KEY (borrower_id) REFERENCES borrowers (id) ON DELETE NO ACTION;
 ALTER TABLE loans ADD CONSTRAINT loans_ref_tool_id FOREIGN KEY (tool_id) REFERENCES tools (id) ON DELETE NO ACTION;
+ALTER TABLE loans ADD CONSTRAINT loans_ref_borrower_id FOREIGN KEY (borrower_id) REFERENCES borrowers (id) ON DELETE CASCADE;

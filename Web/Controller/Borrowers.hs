@@ -45,6 +45,19 @@ instance Controller BorrowersController where
     deleteRecord borrower
     setSuccessMessage "Lånare borttagen"
     redirectTo BorrowersAction
+  action DeletePIIAction = do
+    usersIdsWithActiveLoans <-
+      query @Loan
+        |> filterWhere (#dateReturned, Nothing)
+        |> fetch
+        <&> map (get #borrowerId)
+    usersWithOutActiveLoans <-
+      query @Borrower
+        |> filterWhereNotIn (#id, usersIdsWithActiveLoans)
+        |> fetch
+    deleteRecords usersWithOutActiveLoans
+    setSuccessMessage "Personuppgifter eliminerade"
+    redirectTo BorrowersAction
 
 buildBorrower borrower =
   borrower

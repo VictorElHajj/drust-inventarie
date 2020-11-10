@@ -44,6 +44,9 @@ defaultLayout inner =
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
+                    {displayGDPR currentUserOrNothing}
+                </li>
+                <li class="nav-item">
                     {loginOrLogout currentUserOrNothing}
                 </li>
             </ul>
@@ -112,6 +115,14 @@ loginOrLogout (Nothing) =
   [hsx|
   <a class={classes ["nav-link"]} href={NewSessionAction}> Logga in som DRust </a>
 |]
+
+displayGDPR :: Maybe User -> MarkupM ()
+displayGDPR (Just _) =
+  [hsx|
+   <a href={DeletePIIAction} class="js-delete nav-link">GDPR</a>
+|]
+displayGDPR (Nothing) =
+  [hsx||]
 
 displayBorrower :: Maybe User -> MarkupM ()
 displayBorrower (Just _) =
