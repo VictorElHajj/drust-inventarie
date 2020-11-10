@@ -21,7 +21,6 @@ renderForm borrower =
         {(textField #cid) {fieldLabel = "CID"} {required = True}}
         {(textField #email) {fieldLabel = "E-post"} {required = True}}
         {(textField #phone) {fieldLabel = "Telefon"} {required = True}}
-        {(hiddenField #lastActive) {fieldLabel = "Senaste lån"} {required = True}}
         {submitButton {label = "Spara"}}
     </div>
 |]

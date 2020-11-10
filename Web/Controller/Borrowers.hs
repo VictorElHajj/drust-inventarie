@@ -14,12 +14,8 @@ instance Controller BorrowersController where
     render IndexView {..}
   action NewBorrowerAction =
     do
-      currentTime <-
-        getCurrentTime
-          <&> utctDay
       let borrower =
             newRecord
-              |> set #lastActive currentTime
       render NewView {..}
   action EditBorrowerAction {borrowerId} = do
     borrower <- fetch borrowerId
@@ -52,7 +48,7 @@ instance Controller BorrowersController where
 
 buildBorrower borrower =
   borrower
-    |> fill @["name", "cid", "email", "phone", "lastActive"]
+    |> fill @["name", "cid", "email", "phone"]
     |> validateField #name nonEmpty
     |> validateField #cid nonEmpty
     |> validateField #email isEmail

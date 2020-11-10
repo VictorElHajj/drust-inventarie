@@ -14,8 +14,6 @@ instance View IndexView ViewContext where
                         <th>Lånare</th>
                         <th>E-post</th>
                         <th>Telefon</th>
-                        <th>Senaste lån</th>
-                        <th></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -23,7 +21,7 @@ instance View IndexView ViewContext where
                 <tbody>
                 {
                     let 
-                        sortedBorrowers = sortBy ((flip compare) `on` (get #lastActive)) borrowers
+                        sortedBorrowers = sortBy ((flip compare) `on` (get #name)) borrowers
                     in
                         forEach sortedBorrowers renderBorrower
                 }   
@@ -39,7 +37,6 @@ renderBorrower borrower =
         <td>{get #name borrower <> " - " <> get #cid borrower}</td>
         <td>{get #email borrower}</td>
         <td>{get #phone borrower}</td>
-        <td>{get #lastActive borrower}</td>
         <td><a href={EditBorrowerAction (get #id borrower)} class="text-muted">Ändra</a></td>
         <td><a href={DeleteBorrowerAction (get #id borrower)} class="js-delete text-muted">Ta bort</a></td>
     </tr>
