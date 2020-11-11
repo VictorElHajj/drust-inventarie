@@ -22,6 +22,7 @@ instance FrameworkConfig where
 This needs a postgresql database with the UUID-extension.
 
 Example docker-compose.yml provided below. This assumes you are running Traefik as reverse-proxy and have already set up TLS
+The important part is that the project needs the ENV variables PORT and DATABASE_URL set up to access the postgressql db.
 
 ```docker-compose
 version: "3.3"
