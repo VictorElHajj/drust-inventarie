@@ -1,0 +1,1 @@
+ INSERT INTO public.users (id, email, password_hash, locked_at, failed_login_attempts) VALUES ('3586538a-20ed-4e91-a2fe-7a9a285e74c4', 'drust@dtek.se', 'sha256|17|iGJ0oW3A5ughu//AIi2UaA==|ahDg1jD1AGeMybrX6/0zQokqqSBURMdsswf1IfA2mz0=', NULL, 0);
