@@ -74,3 +74,5 @@ services:
           - "traefik.enable=false"
 ~                                            
 ```
+
+4. Run with `sudo docker-compose up`
