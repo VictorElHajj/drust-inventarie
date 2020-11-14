@@ -8,7 +8,7 @@ data NewView = NewView
     borrowers :: [Borrower]
   }
 
-instance View NewView ViewContext where
+instance View NewView where
   html NewView {..} =
     [hsx|
         {renderForm tools borrowers loan}

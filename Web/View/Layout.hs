@@ -12,8 +12,6 @@ import Text.Blaze.Internal (MarkupM)
 import Web.Routes
 import Web.Types
 
-type Html = HtmlWithContext ViewContext
-
 defaultLayout :: Html -> Html
 defaultLayout inner =
   H.docTypeHtml ! A.lang "en" $
@@ -58,23 +56,25 @@ defaultLayout inner =
 </body>
 |]
 
+stylesheets :: Html
 stylesheets = do
   when
-    (isDevelopment FrameworkConfig.environment)
+    isDevelopment
     [hsx|
         <link rel="stylesheet" href="/vendor/bootstrap.min.css"/>
         <link rel="stylesheet" href="/vendor/flatpickr.min.css"/>
         <link rel="stylesheet" href="/app.css"/>
     |]
   when
-    (isProduction FrameworkConfig.environment)
+    isProduction
     [hsx|
         <link rel="stylesheet" href="/prod.css"/>
     |]
 
+scripts :: Html
 scripts = do
   when
-    (isDevelopment FrameworkConfig.environment)
+    isDevelopment
     [hsx|
         <script id="livereload-script" src="/livereload.js"></script>
         <script src="/vendor/jquery-3.2.1.slim.min.js"></script>
@@ -86,11 +86,12 @@ scripts = do
         <script src="/vendor/morphdom-umd.min.js"></script>
     |]
   when
-    (isProduction FrameworkConfig.environment)
+    isProduction
     [hsx|
         <script src="/prod.js"></script>
     |]
 
+metaTags :: Html
 metaTags =
   [hsx|
     <meta charset="utf-8"/>

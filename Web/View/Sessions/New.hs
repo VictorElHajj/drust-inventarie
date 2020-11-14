@@ -3,7 +3,7 @@ module Web.View.Sessions.New where
 import IHP.AuthSupport.View.Sessions.New
 import Web.View.Prelude
 
-instance View (NewView User) ViewContext where
+instance View (NewView User) where
   html NewView {..} =
     [hsx|
         <div class="h-100 p-4" id="sessions-new">

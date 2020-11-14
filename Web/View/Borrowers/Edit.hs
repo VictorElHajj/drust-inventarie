@@ -4,7 +4,7 @@ import Web.View.Prelude
 
 data EditView = EditView {borrower :: Borrower}
 
-instance View EditView ViewContext where
+instance View EditView where
   html EditView {..} =
     [hsx|
         {renderForm borrower}

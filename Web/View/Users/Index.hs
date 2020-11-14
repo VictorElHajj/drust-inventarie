@@ -4,7 +4,7 @@ import Web.View.Prelude
 
 data IndexView = IndexView {user :: User}
 
-instance View IndexView ViewContext where
+instance View IndexView where
   html IndexView {..} =
     [hsx|
     <div class="p-4">

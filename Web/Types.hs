@@ -11,14 +11,6 @@ import IHP.ViewSupport
 
 data WebApplication = WebApplication deriving (Eq, Show)
 
-data ViewContext = ViewContext
-  { requestContext :: ControllerSupport.RequestContext,
-    flashMessages :: [IHP.Controller.Session.FlashMessage],
-    controllerContext :: ControllerSupport.ControllerContext,
-    layout :: Layout,
-    user :: Maybe User
-  }
-
 data ToolsController
   = ToolsAction
   | NewToolAction

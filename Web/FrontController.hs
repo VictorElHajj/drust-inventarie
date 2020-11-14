@@ -11,6 +11,8 @@ import Web.Controller.Sessions
 import Web.Controller.Tools
 import Web.Controller.Users
 import Web.Types
+import Web.View.Layout (defaultLayout)
+import Web.View.Prelude (setLayout)
 
 instance FrontController WebApplication where
   controllers =
@@ -24,5 +26,6 @@ instance FrontController WebApplication where
     ]
 
 instance InitControllerContext WebApplication where
-  initContext =
+  initContext = do
     initAuthentication @User
+    setLayout defaultLayout

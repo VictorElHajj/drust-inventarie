@@ -5,7 +5,7 @@ import Web.View.Prelude
 
 data IndexView = IndexView {tools :: [Tool]}
 
-instance View IndexView ViewContext where
+instance View IndexView where
   html IndexView {..} =
     [hsx|
         <div class="table-responsive">
