@@ -15,5 +15,7 @@ JS_FILES += ${IHP}/static/vendor/popper.min.js
 JS_FILES += ${IHP}/static/vendor/bootstrap.min.js
 JS_FILES += ${IHP}/static/vendor/flatpickr.js
 JS_FILES += ${IHP}/static/helpers.js
+JS_FILES += ${IHP}/static/vendor/morphdom-umd.min.js
 JS_FILES += ${IHP}/static/vendor/turbolinks.js
 JS_FILES += ${IHP}/static/vendor/turbolinksInstantClick.js
+JS_FILES += ${IHP}/static/vendor/turbolinksMorphdom.js
