@@ -58,7 +58,7 @@ renderCollapsableLoans collapsed title tools borrowers loans =
   [hsx|
     <tr style="transform: rotate(0);">
         <th>
-            <a class="btn btn-link btn-block text-left text-dark stretched-link" data-toggle="collapse" data-target={"#collapse"++(trimSpaces title)} aria-expanded="false" aria-controls={trimSpaces title}>
+            <a class="btn btn-link btn-block text-left text-dark stretched-link" data-toggle="collapse" data-target={"#collapseLoan"++(trimSpaces title)} aria-expanded="false" aria-controls={trimSpaces title}>
             {title :: Text}
             </a>
         </th>
@@ -81,7 +81,7 @@ collapse = \case
 
 renderLoan collapsed title tools borrowers loan =
   [hsx|
-    <tr id={"collapse"++(trimSpaces title)} class={"collapse "++(collapse collapsed)} style="transition: none;">
+    <tr id={"collapseLoan"++(trimSpaces title)} class={"collapse "++(collapse collapsed)} style="transition: none;">
         <td>
         {
             let
