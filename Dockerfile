@@ -4,7 +4,7 @@ FROM nixos/nix
 RUN nix-env --quiet -iA nixpkgs.git nixpkgs.cachix nixpkgs.direnv
 RUN cachix use digitallyinduced
 
-COPY ./src /ihp
+COPY ./ /ihp
 WORKDIR /ihp
 
 # Build
