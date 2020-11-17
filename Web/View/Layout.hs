@@ -33,7 +33,7 @@ defaultLayout inner =
             </a>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item ">
-                    <a class={classes ["nav-link", ("active", isActivePath ToolsAction)]} href={ToolsAction}>Verktyg</a>
+                    <a class={classes ["nav-link", ("active", isActivePath ToolsAction)]} data-turbolinks-preload="false" href={ToolsAction}>Verktyg</a>
                 </li>
                 {displayLoans currentUserOrNothing (isActivePath LoansAction)}
                 {displayBorrower currentUserOrNothing (isActivePath BorrowersAction)}
@@ -136,7 +136,7 @@ displayGDPR (Nothing) =
 displayLoans :: Maybe User -> Bool -> MarkupM ()
 displayLoans (Just _) isActive =
   [hsx|
-    <a class={classes ["nav-link", ("active", isActive)]} href={LoansAction}>Lån</a>
+    <a class={classes ["nav-link", ("active", isActive)]} data-turbolinks-preload="false" href={LoansAction}>Lån</a>
 |]
 displayLoans (Nothing) _ =
   [hsx|
@@ -145,7 +145,7 @@ displayLoans (Nothing) _ =
 displayBorrower :: Maybe User -> Bool -> MarkupM ()
 displayBorrower (Just _) isActive =
   [hsx|
-    <a class={classes ["nav-link", ("active", isActive)]} href={BorrowersAction}>Lånare</a>
+    <a class={classes ["nav-link", ("active", isActive)]} data-turbolinks-preload="false" href={BorrowersAction}>Lånare</a>
 |]
 displayBorrower (Nothing) _ =
   [hsx|
