@@ -21,6 +21,7 @@ renderForm borrower =
         {(textField #cid) {fieldLabel = "CID"} {required = True}}
         {(textField #email) {fieldLabel = "E-post"} {required = True}}
         {(textField #phone) {fieldLabel = "Telefon"} {required = True}}
+        {(checkboxField #gdprConsent) {fieldLabel = "GDPR: Jag godkänner att DRust sparar denna data tills att nästa DRust går på och alla lånade verktyg är tillbaka."} {required = True}}
         {submitButton {label = "Spara"}}
     </div>
 |]

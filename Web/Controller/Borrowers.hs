@@ -61,7 +61,12 @@ instance Controller BorrowersController where
 
 buildBorrower borrower =
   borrower
-    |> fill @["name", "cid", "email", "phone"]
+    |> fill @["name", "cid", "email", "phone", "gdprConsent"]
     |> validateField #name nonEmpty
     |> validateField #cid nonEmpty
     |> validateField #email isEmail
+    |> validateField #gdprConsent isAgreed
+
+isAgreed :: Bool -> ValidatorResult
+isAgreed True = Success
+isAgreed False = Failure "Please accept GDPR consent before submitting."
