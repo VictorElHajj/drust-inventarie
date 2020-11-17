@@ -35,9 +35,7 @@ defaultLayout inner =
                 <li class="nav-item ">
                     <a class={classes ["nav-link", ("active", isActivePath ToolsAction)]} href={ToolsAction}>Verktyg</a>
                 </li>
-                <li class="nav-item">
-                    <a class={classes ["nav-link", ("active", isActivePath LoansAction)]} href={LoansAction}>Lån</a>
-                </li>
+                {displayLoans currentUserOrNothing (isActivePath LoansAction)}
                 {displayBorrower currentUserOrNothing (isActivePath BorrowersAction)}
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -132,6 +130,15 @@ displayGDPR (Just _) =
    <a href={DeletePIIAction} class="js-delete nav-link">GDPR</a>
 |]
 displayGDPR (Nothing) =
+  [hsx|
+  |]
+
+displayLoans :: Maybe User -> Bool -> MarkupM ()
+displayLoans (Just _) isActive =
+  [hsx|
+    <a class={classes ["nav-link", ("active", isActive)]} href={LoansAction}>Lån</a>
+|]
+displayLoans (Nothing) _ =
   [hsx|
   |]
 

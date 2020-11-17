@@ -7,13 +7,14 @@ import Web.View.Loans.Index
 import Web.View.Loans.New
 
 instance Controller LoansController where
+  beforeAction = ensureIsUser
+
   action LoansAction = do
     loans <- query @Loan |> fetch
     tools <- query @Tool |> fetch
     borrowers <- query @Borrower |> fetch
     render IndexView {..}
   action NewLoanAction {toolId} = do
-    ensureIsUser
     currentTime <-
       getCurrentTime
         <&> utctDay
@@ -25,11 +26,9 @@ instance Controller LoansController where
     borrowers <- query @Borrower |> fetch
     render NewView {..}
   action EditLoanAction {loanId} = do
-    ensureIsUser
     loan <- fetch loanId
     render EditView {..}
   action UpdateLoanAction {loanId} = do
-    ensureIsUser
     loan <- fetch loanId
     loan
       |> buildLoan
@@ -40,7 +39,6 @@ instance Controller LoansController where
           setSuccessMessage "Lån redigerat"
           redirectTo LoansAction
   action CreateLoanAction = do
-    ensureIsUser
     let loan = newRecord @Loan
     loan
       |> buildLoan
@@ -59,13 +57,11 @@ instance Controller LoansController where
           setSuccessMessage "Lån skapat"
           redirectTo LoansAction
   action DeleteLoanAction {loanId} = do
-    ensureIsUser
     loan <- fetch loanId
     deleteRecord loan
     setSuccessMessage "Lån borttaget"
     redirectTo LoansAction
   action ReturnLoanAction {loanId} = do
-    ensureIsUser
     currentTime <-
       getCurrentTime
         <&> utctDay
