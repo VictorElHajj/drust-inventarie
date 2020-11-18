@@ -6,22 +6,26 @@ This project is built using the Integrated Haskell Platform
 https://github.com/digitallyinduced/ihp/blob/master/LICENSE
 
 # Deploy with docker
-1. Download project and configure. 
+1. Download project and name the folder 'src'.
 
-Edit `/Config/Config.hs` like this to change environment and hostname
-```haskell
-instance FrameworkConfig where 
-    environment = Production
-    appHostname = "YOUR_HOSTNAME"
-    baseUrl =  "https://YOUR_HOSTNAME"
+`clone git@github.com:VictorElHajj/drust-inventarie.git src`
+
+Edit `src/Config/Config.hs` like this to change environment and hostname
+```haskellconfig
+haskellconfig :: ConfigBuilder
+config = do
+    option Production
+    option (AppHostname "YOUR_HOST_NAME")
+    option (BaseUrl "https://YOUR_HOST_NAME")
 ```
 
-2. Build the image with `sudo docker build -t drust-inventarie .` this may take a while.
+2. Build the image with `sudo docker build -t drust-inventarie ./src` this will take a while.
 3. Create a docker-compose.yml
 
-This needs a postgresql database with the UUID-extension.
+This needs a postgresql database with the UUID-extension (included in the 'postgres' image).
 
-Example docker-compose.yml provided below. This assumes you are running Traefik as reverse-proxy and have already set up TLS
+Example docker-compose.yml provided below. Just change username/password/database name/hostname This assumes you are running Traefik as reverse-proxy and have already set up TLS.
+
 The important part is that the project needs the ENV variables PORT and DATABASE_URL set up to access the postgressql db.
 
 ```docker-compose
@@ -77,3 +81,6 @@ services:
 ```
 
 4. Run with `sudo docker-compose up`
+
+# Updating
+Go into the src folder and pull the latest version, rebuild the image and then finally restart. There should hopefully be no breaking changes in a while (config format was recently changed for example).
